@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_clear(char *s, int len) { printf("%s", s); }
+void print_clear(char *s, int len) {
+  printf("|");
+  for (int i = 0; i < len; i++) {
+    if (s[i] <= 0x20 || s[i] >= 0x7E) {
+      printf(".");
+    } else {
+      printf("%c", s[i]);
+    }
+  }
+  printf("|");
+}
 
 int main() {
   int c;
@@ -19,5 +29,8 @@ int main() {
       printf("\n");
     }
   }
+  printf("%*s", 3 * (0x10 - (mem_i % 0x10)), " ");
+  print_clear(s, (mem_i % 0x10));
+  printf("\n%08x", mem_i);
   printf("\n");
 }
